@@ -21,6 +21,8 @@ namespace Cypher_Decrypt
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ColumnChart chart1;
+        private ColumnChart chart2;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,13 +31,13 @@ namespace Cypher_Decrypt
 
         private void InitChart()
         {
-            ColumnChart chart1 = new ColumnChart(300, 62, 45, 20);
-            ColumnChart chart2 = new ColumnChart(300, 62, 45, 20);
+            chart1 = new ColumnChart(300, 62, 45, 20);
+            chart2 = new ColumnChart(300, 62, 45, 20);
 
             for (int i = 0; i < 13; i++)
             {
                 chart1.Add(new Column(0, ((char)(i + 'a')).ToString()));
-                chart2.Add(new Column(4, ((char)(i + 'a' + 13)).ToString()));
+                chart2.Add(new Column(0, ((char)(i + 'a' + 13)).ToString()));
             }
 
             ColumnChart.Link(chart1, chart2);
@@ -43,9 +45,29 @@ namespace Cypher_Decrypt
             chart1.Draw(UpperChart);
             chart2.Draw(LowerChart);
         }
+        private void UpdateChart()
+        {
+            int[] letters = new int[26];
+            foreach (char c in InputField_LetterFrequency_TextBox.Text)
+            {
+                if (!char.IsLetter(c))
+                    continue;
+                letters[c - 'a']++;
+            }
+
+            for(int i = 0; i < 13; i++)
+            {
+                chart1.updateColumnByName(((char)(i + 'a')).ToString(), letters[i]);
+                chart2.updateColumnByName(((char)(i + 'a' + 13)).ToString(), letters[i + 13]);
+            }
+
+            ColumnChart.Link(chart1, chart2);
+            chart1.Draw(UpperChart);
+            chart2.Draw(LowerChart);
+        }
         private void Scan_LetterFrequency_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            UpdateChart();
         }
     }
 }

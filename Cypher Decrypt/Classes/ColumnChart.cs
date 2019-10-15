@@ -20,6 +20,7 @@ namespace Cypher_Decrypt.Classes
         private float colMaxHeight;
         private float exacMaxValue;
         private List<Column> columns;
+        private Dictionary<String, Column> columnStorage;
 
         public float Height
         {
@@ -31,7 +32,7 @@ namespace Cypher_Decrypt.Classes
         }
         public float Width => width; 
         public float LabelHeight { get => labelHeight; set => labelHeight = value; }
-        internal List<Column> Columns { get => columns; set => columns = value; }
+        internal List<Column> Columns => columns;
         public float ColWidth { get => colWidth; set => colWidth = value; }
         public float Spacing { get => spacing; set => spacing = value; }
         public float ColMaxHeight => colMaxHeight;
@@ -39,35 +40,41 @@ namespace Cypher_Decrypt.Classes
 
         public ColumnChart(int height, float labelHeight, float colWidth, float spacing)
         {
-            Columns = new List<Column>();
+            columns = new List<Column>();
+            columnStorage = new Dictionary<string, Column>();
             Height = height;
             LabelHeight = labelHeight;
             ColWidth = colWidth;
             Spacing = spacing;
         }
+        public bool updateColumnByName(string name, float value)
+        {
+            Column returnValue = null;
+            columnStorage.TryGetValue(name, out returnValue);
+            if (returnValue == null)
+                return false;
+            returnValue.Value = value;
+            exacMaxValue = Math.Max(returnValue.Value, exacMaxValue);
+            return true;
+        }
+
         public void Draw(Grid chart)
         {
-            chart.Width = width = (ColWidth + Spacing) * (Columns.Count - 1) + ColWidth;
+            chart.Children.Clear();
+            chart.Width = width = (ColWidth + Spacing) * (columns.Count - 1) + ColWidth;
             chart.Height = Height;
             colMaxHeight = Height - LabelHeight - ColWidth;
-
-
-            //float exacMaxValue = float.MinValue;
-
-            //foreach (Column col in Columns)
-            //    exacMaxValue = Math.Max(exacMaxValue, col.Value);
-
 
             float maxValue = exacMaxValue * 1.2f + 1;
 
             int run = 0;
-            foreach (Column col in Columns)
+            foreach (Column col in columns)
             {
                 Brush valueColor = new SolidColorBrush(
                     Color.FromRgb(
                         0,
-                        (byte)(150 + col.Value / (exacMaxValue + 1) * 95),
-                        (byte)(70 + col.Value / (exacMaxValue + 1) * 80)
+                        (byte)(120 + col.Value / (exacMaxValue + 1) * 135),
+                        (byte)(70 + col.Value / (exacMaxValue + 1) * 40)
                     )
                 );
 
@@ -160,6 +167,7 @@ namespace Cypher_Decrypt.Classes
         public void Add(Column col)
         {
             exacMaxValue = Math.Max(col.Value, exacMaxValue);
+            columnStorage.Add(col.Name, col);
             Columns.Add(col);
         }
         public static void Link(ColumnChart chart1, ColumnChart chart2)

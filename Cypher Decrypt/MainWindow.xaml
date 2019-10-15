@@ -60,7 +60,7 @@
                     </Grid.RowDefinitions>
                     
                     <Label Grid.Row="0" Content="Input" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="30" FontWeight="Bold" FontFamily="pack://application:,,,/Fonts/#Quicksand"></Label>
-                    <TextBox Grid.Row="1" Height="250" FontWeight="Bold" BorderThickness="0" Padding="10" FontFamily="pack://application:,,,/Fonts/#Quicksand" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
+                    <TextBox x:Name="InputField_LetterFrequency_TextBox" Grid.Row="1" Height="250" FontWeight="Bold" BorderThickness="0" Padding="10" FontFamily="pack://application:,,,/Fonts/#Quicksand" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
