@@ -1,0 +1,80 @@
+﻿<Window x:Class="Cypher_Decrypt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cypher_Decrypt"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="768" Width="1366"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.5*" />
+            <ColumnDefinition Width="7.5*"/>
+        </Grid.ColumnDefinitions>
+        
+
+        <Rectangle Grid.Column="1" Grid.RowSpan="1000" Fill="#303030">
+            
+        </Rectangle>
+        <Rectangle Grid.Column="0" Grid.RowSpan="1000">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1EFF82" Offset="0" />
+                    <GradientStop Color="#1EAC82" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <Grid x:Name="UpperChart" Grid.Row="1" Width="300" Height="300">
+
+            </Grid>
+            <Grid x:Name="LowerChart" Grid.Row="3" Width="300" Height="300">
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="0">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid x:Name="Input" Grid.Column="1">
+                <Grid Width="200" Height="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Label Grid.Row="0" Content="Input" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="30" FontWeight="Bold" FontFamily="pack://application:,,,/Fonts/#Quicksand"></Label>
+                    <TextBox Grid.Row="1" Height="250" FontWeight="Bold" BorderThickness="0" Padding="10" FontFamily="pack://application:,,,/Fonts/#Quicksand" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    
+                    <Button x:Name="Scan_LetterFrequency_Button" Grid.Row="2" Height="30" Width="70" Style="{StaticResource FlatButton}" Click="Scan_LetterFrequency_Button_Click">
+                        Scan
+                    </Button>
+                    
+                </Grid>
+            </Grid>
+        </Grid>
+        
+    </Grid>
+</Window>
